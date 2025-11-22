@@ -497,90 +497,61 @@ body{
 .nav-toggle:focus { outline: 2px solid var(--primary-600); outline-offset: 2px; }
 
 /* Desktop / large screens: keep existing look */
-@media (min-width: 901px) {
-  .nav-toggle { display: none; }
-  .nav-tabs { display:flex; gap:12px; align-items:center; overflow:visible; -webkit-overflow-scrolling:auto; flex-wrap:wrap; }
-  .header-content { align-items:center; flex-wrap:nowrap; }
-}
-
-/* Medium and small screens: allow horizontal scrolling and show toggle */
+/* ============================================
+   MOBILE NAVBAR COMPACT MODE (≤900px)
+   ============================================ */
 @media (max-width: 900px) {
-  .nav-toggle { display: inline-flex; }
 
-  /* horizontal scroll strip (compact) */
-  .nav-tabs {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: nowrap;            /* never wrap pills to new lines */
-    overflow-x: auto;             /* allow horizontal scroll when needed */
-    -webkit-overflow-scrolling: touch;
-    padding: 8px 6px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0,0,0,0.12) transparent;
-    background: transparent;
-  }
-
-  .nav-tabs::-webkit-scrollbar { height: 8px; }
-  .nav-tabs::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 8px; }
-
-  /* let header content stack slightly but avoid overflow */
-  .header-content{ flex-direction: row; align-items:center; gap:10px; }
-  .nav-wrap { max-width: calc(100% - 160px); } /* leave room for user-info */
-}
-
-/* Very small screens / portrait phones: collapsible vertical menu */
-@media (max-width: 520px) {
-  .nav-toggle { display: inline-flex; }
-
-  /* Hide horizontal strip by default on tiny screens; JS toggles .open */
-  .nav-tabs {
-    display: none;
-    flex-direction: column;
-    gap: 6px;
-    padding: 8px;
-    width: 100%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.9));
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-    margin-top: 8px;
-  }
-
-  /* when menu is opened by JS add `.open` to show it */
-  .nav-tabs.open { display: flex; }
-
-  /* Make buttons full width in expanded mobile menu */
+  /* Reduce font + padding of nav pills */
   .nav-tabs .tab-btn {
-    width: 100%;
-    text-align: left;
-    padding: 12px 14px;
-    border-radius: 10px;
-    white-space: normal;
+    font-size: 12px !important;
+    padding: 6px 10px !important;
+    border-radius: 20px !important;
   }
 
-  /* stack header content, keep brand and toggle on one line */
-  .header-content { flex-direction: column; align-items: stretch; gap:8px; }
-  .user-info { justify-content: space-between; width:100%; }
-  .brand-and-toggle { display:flex; justify-content:space-between; width:100%; align-items:center; }
-}
-
-/* Accessibility: show focus outlines for keyboard users */
-.tab-btn:focus, .nav-toggle:focus, .logout-btn:focus { outline: 2px solid rgba(43,100,210,0.12); outline-offset: 2px; }
-
-/* ---------------------------
-   Responsive tweaks (existing)
-   --------------------------- */
-@media (max-width: 900px){
-  .header-content{ /* fallback adjustments */
-    gap:5px;
+  /* Smaller gap between pills */
+  .nav-tabs {
+    gap: 6px !important;
   }
-  .user-info{ width:100%; justify-content:space-between }
-  .auth-container{ padding:28px }
+
+  /* Make toggle (hamburger) smaller */
+  .nav-toggle {
+    font-size: 18px !important;
+    padding: 6px 8px !important;
+  }
 }
 
-@media (max-width: 520px){
-  .auth-container{ padding:20px; border-radius:12px }
-  .create-post textarea{ min-height:80px }
-  .users-container{ grid-template-columns:1fr }
-  .post{ padding:12px }
+/* ============================================
+   VERY SMALL SCREENS (≤520px)
+   EVEN MORE COMPACT
+   ============================================ */
+@media (max-width: 520px) {
+
+  /* Vertical mobile expanded menu – smaller text */
+  .nav-tabs .tab-btn {
+    font-size: 11px !important;
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Compact stacked layout */
+  .nav-tabs {
+    gap: 4px !important;
+    padding: 6px !important;
+  }
+
+  /* Header brand, toggle, logout — smaller sizes */
+  .header h1 {
+    font-size: 16px !important;
+  }
+
+  .logout-btn {
+    font-size: 12px !important;
+    padding: 6px 10px !important;
+  }
+
+  .user-info span,
+  .role-badge {
+    font-size: 11px !important;
+  }
 }
