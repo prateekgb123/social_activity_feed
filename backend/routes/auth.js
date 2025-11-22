@@ -28,19 +28,37 @@ res.status(400).json({ error: err.message });
 
 
 routerAuth.post('/login', async (req, res) => {
-try {
-const { email, password } = req.body;
-if (!email || !password) return res.status(400).json({ error: 'Missing fields' });
-const user = await UserAuth.findOne({ email });
-if (!user) return res.status(401).json({ error: 'Invalid credentials' });
-const isMatch = await bcrypt.compare(password, user.password);
-if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' });
-const token = jwt.sign({ userId: user._id }, JWT_SECRET2);
-res.json({ user: { id: user._id, username: user.username, email: user.email, role: user.role }, token });
-} catch (err) {
-res.status(400).json({ error: err.message });
-}
+  try {
+    const { username, password } = req.body;
+    if (!username || !password)
+      return res.status(400).json({ error: 'Missing fields' });
+
+    // Find by username instead of email
+    const user = await UserAuth.findOne({ username });
+    if (!user)
+      return res.status(401).json({ error: 'Invalid credentials' });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch)
+      return res.status(401).json({ error: 'Invalid credentials' });
+
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET2);
+
+    res.json({
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role
+      },
+      token
+    });
+
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
+
 
 
 module.exports = routerAuth;

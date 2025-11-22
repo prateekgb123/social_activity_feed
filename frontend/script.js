@@ -1,4 +1,4 @@
-// frontend/script.js (corrected)
+// frontend/script.js (updated)
 
 // API Configuration
 const API_URL = 'http://localhost:5000/api';
@@ -121,11 +121,14 @@ async function signup() {
     const data = await response.json().catch(() => ({}));
 
     if (response.ok) {
-      document.getElementById('signupUsername').value = '';
-      document.getElementById('signupEmail').value = '';
-      document.getElementById('signupPassword').value = '';
+      document.getElementById('signupUsername') && (document.getElementById('signupUsername').value = '');
+      document.getElementById('signupEmail') && (document.getElementById('signupEmail').value = '');
+      document.getElementById('signupPassword') && (document.getElementById('signupPassword').value = '');
       showToast('Account created successfully! Please login.', 'success');
-      document.getElementById('loginEmail') && (document.getElementById('loginEmail').value = email);
+
+      // Prefill the login username (not email)
+      document.getElementById('loginUsername') && (document.getElementById('loginUsername').value = username);
+
       showLogin();
     } else {
       showToast(data.error || 'Signup failed', 'error');
@@ -137,10 +140,10 @@ async function signup() {
 }
 
 async function login() {
-  const email = document.getElementById('loginEmail')?.value;
+  const username = document.getElementById("loginUsername")?.value;
   const password = document.getElementById('loginPassword')?.value;
 
-  if (!email || !password) {
+  if (!username || !password) {
     showToast('Please fill all fields', 'error');
     return;
   }
@@ -149,7 +152,7 @@ async function login() {
     const response = await fetch(`${API_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ username, password })
     });
 
     const data = await response.json().catch(() => ({}));
@@ -204,9 +207,6 @@ function logout(event) {
 
   showAuth();
   showToast('Logged out successfully', 'success');
-
-  // If you want a full reload as fallback uncomment:
-  // location.reload();
 }
 
 // Attach logout listener (supports button with id="logoutBtn")
@@ -215,7 +215,7 @@ function attachLogoutListener() {
     const t = ev.target;
     if (!t) return;
     // If clicked element or parent has id logoutBtn
-    if (t.id === 'logoutBtn' || t.closest && t.closest('#logoutBtn')) {
+    if (t.id === 'logoutBtn' || (t.closest && t.closest('#logoutBtn'))) {
       logout(ev);
     }
   });
@@ -477,8 +477,9 @@ function displayUsers(users, currentUserData) {
   }
 
   container.innerHTML = users.map(user => {
-    const isFollowing = Array.isArray(user.followers) && user.followers.some(f => idEquals(f, currentUser?.id));
-    const isBlocked = Array.isArray(currentUserData.blockedUsers) && currentUserData.blockedUsers.some(b => idEquals(b, user._id));
+    // Use the passed-in currentUserData to decide follow/block state
+    const isFollowing = Array.isArray(user.followers) && user.followers.some(f => idEquals(f, currentUserData?.id));
+    const isBlocked = Array.isArray(currentUserData?.blockedUsers) && currentUserData.blockedUsers.some(b => idEquals(b, user._id));
 
     return `
       <div class="user-card">
