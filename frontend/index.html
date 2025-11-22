@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Auth Section -->
+    <div id="authSection" class="auth-section">
+        <div class="auth-container">
+            <h1>Social Media Platform</h1>
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form">
+                <h2>Login</h2>
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button onclick="login()">Login</button>
+                <p>Don't have an account? <a href="#" onclick="showSignup()">Sign up</a></p>
+            </div>
+            
+            <!-- Signup Form -->
+            <div id="signupForm" class="auth-form hidden">
+                <h2>Sign Up</h2>
+                <input type="text" id="signupUsername" placeholder="Username" required>
+                <input type="email" id="signupEmail" placeholder="Email" required>
+                <input type="password" id="signupPassword" placeholder="Password" required>
+                <button onclick="signup()">Sign Up</button>
+                <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Section -->
+    <div id="appSection" class="hidden">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>Social Network</h1>
+                <div class="user-info">
+                    <span id="userDisplayName"></span>
+                    <span id="userRole" class="role-badge"></span>
+                    <button onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('feed')">Feed</button>
+            <button class="tab-btn" onclick="showTab('activity')">Activity Wall</button>
+            <button class="tab-btn" onclick="showTab('users')">Users</button>
+            <button class="tab-btn" id="adminTab" class="hidden" onclick="showTab('admin')">Admin Panel</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Feed Tab -->
+            <div id="feedTab" class="tab-content active">
+                <div class="create-post">
+                    <h3>Create a Post</h3>
+                    <textarea id="postContent" placeholder="What's on your mind?" rows="3"></textarea>
+                    <button onclick="createPost()">Post</button>
+                </div>
+                
+                <div id="postsContainer" class="posts-container">
+                    <!-- Posts will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Activity Wall Tab -->
+            <div id="activityTab" class="tab-content">
+                <h2>Activity Wall</h2>
+                <div id="activitiesContainer" class="activities-container">
+                    <!-- Activities will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Users Tab -->
+            <div id="usersTab" class="tab-content">
+                <h2>All Users</h2>
+                <div id="usersContainer" class="users-container">
+                    <!-- Users will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Admin Panel Tab -->
+            <div id="adminTab" class="tab-content">
+                <h2>Admin Panel</h2>
+                
+                <div class="admin-section">
+                    <h3>Manage Users</h3>
+                    <div id="adminUsersContainer" class="admin-users-container">
+                        <!-- Admin user management will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="admin-section" id="ownerSection">
+                    <h3>Owner Controls</h3>
+                    <div id="ownerControlsContainer">
+                        <!-- Owner controls will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
