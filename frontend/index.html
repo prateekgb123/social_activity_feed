@@ -38,22 +38,29 @@
         <!-- Header -->
         <header class="header">
             <div class="header-content">
-                <h1>Social Network</h1>
+                <h1>Social Network App</h1>
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('feed')">Feed</button>
+            <button class="tab-btn" onclick="showTab('activity')">Activity Wall</button>
+            <button class="tab-btn" onclick="showTab('users')">Users</button>
                 <div class="user-info">
                     <span id="userDisplayName"></span>
                     <span id="userRole" class="role-badge"></span>
-                    <button onclick="logout()">Logout</button>
+                    <button onclick="logout()" 
+        style="background:#f44336;color:white;padding:8px 12px;border:none;
+               border-radius:8px;font-weight:700;cursor:pointer;
+               transition:0.2s;"
+        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 26px rgba(244,67,54,0.26)';"
+        onmouseout="this.style.transform='none';this.style.boxShadow='none';">
+  Logout
+</button>
+
                 </div>
             </div>
         </header>
 
         <!-- Navigation -->
-        <nav class="nav-tabs">
-            <button class="tab-btn active" onclick="showTab('feed')">Feed</button>
-            <button class="tab-btn" onclick="showTab('activity')">Activity Wall</button>
-            <button class="tab-btn" onclick="showTab('users')">Users</button>
-            <button class="tab-btn" id="adminTab" class="hidden" onclick="showTab('admin')">Admin Panel</button>
-        </nav>
+       
 
         <!-- Main Content -->
         <main class="main-content">
