@@ -469,7 +469,7 @@
        Responsive tweaks
        --------------------------- */
     @media (max-width: 900px){
-      .header-content{ flex-direction:column; gap:10px; align-items:flex-start }
+      .header-content{ flex-direction:column; gap:5px; align-items:flex-start }
       .user-info{ width:100%; justify-content:space-between }
       .auth-container{ padding:28px }
       .nav-tabs{ justify-content:flex-start; overflow:auto; padding-bottom:6px }
